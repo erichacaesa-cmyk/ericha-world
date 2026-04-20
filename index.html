@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Little World of Ericha</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Poppins', Arial, sans-serif;
+            text-align: center;
+
+            background-color: #ffeaf4;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Ctext x='10' y='40' font-size='30'%3E💗%3C/text%3E%3Ctext x='60' y='90' font-size='24'%3E✨%3C/text%3E%3C/svg%3E");
+            background-size: 120px;
+        }
+
+        .container {
+            padding: 50px;
+            background: rgba(255,255,255,0.55);
+            backdrop-filter: blur(6px);
+            border-radius: 30px;
+            margin: 40px auto;
+            max-width: 1000px;
+            box-shadow: 0 10px 30px rgba(255,182,193,0.35);
+        }
+
+        h1 {
+            color: #b03060;
+            margin-bottom: 20px;
+        }
+
+        .intro {
+            font-size: 17px;
+            color: #7a2e4a;
+            max-width: 520px;
+            margin: 0 auto 60px;
+            line-height: 1.6;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: separate;
+            border-spacing: 15px;
+            width: 60%;
+        }
+
+        td {
+            background-color: #fff0f6;
+            border-radius: 20px;
+            padding: 25px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 500;
+            color: #8b2c4f;
+            box-shadow: 0 8px 20px rgba(255,182,193,0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        td:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(255,105,180,0.4);
+            background-color: #ffeaf4;
+        }
+
+        button {
+            background-color: #ff9ecb;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(255,105,180,0.4);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #ff78b4;
+            transform: scale(1.05);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Teacher tetap kotak */
+        .photo-frame {
+            height: 200px;
+            background-color: #fff0f6;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(255,182,193,0.4);
+            overflow: hidden;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Design auto */
+        .design-grid .photo-frame {
+            height: auto;
+        }
+
+        .design-grid .photo-frame img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="home" class="container">
+    <h1>Little World of Ericha</h1>
+
+    <div class="intro">
+        Hi, I’m Ericha ✨<br>
+        This is my little world where I share things I love,<br>
+        my daily life, and the people who make it special 💗
+    </div>
+
+    <button onclick="showMenu()">Enter</button>
+</div>
+
+<div id="menu" class="container hidden">
+    <h1>My Menu</h1>
+    <table>
+        <tr>
+            <td onclick="showDetail('hobby')">🎨 Hobby</td>
+            <td onclick="showDetail('food')">🍰 Food</td>
+        </tr>
+        <tr>
+            <td onclick="showDetail('work')">💼 Work</td>
+            <td onclick="showDetail('friends')">💗 Friends</td>
+        </tr>
+        <tr>
+            <td colspan="2" onclick="showDetail('portfolio')">📁 Portfolio</td>
+        </tr>
+    </table>
+    <button onclick="backHome()">Back</button>
+</div>
+
+<div id="detail" class="container hidden">
+    <h1 id="detailTitle"></h1>
+    <div id="detailContent"></div>
+    <br>
+    <button onclick="backMenu()">Back to Menu</button>
+</div>
+
+<script>
+let lastMenu = "";
+function showMenu() {
+    home.classList.add("hidden");
+    menu.classList.remove("hidden");
+}
+
+
+function backMenu() {
+    detail.classList.add("hidden");
+if (lastMenu === "portfolio") { 
+        showDetail("portfolio");
+    } else {
+    menu.classList.remove("hidden");
+}
+}
+
+function showDetail(type) {
+    menu.classList.add("hidden");
+    detail.classList.remove("hidden");
+
+    let title = "";
+    let content = "";
+
+    if (type === "portfolio") {
+	lastMenu = "menu";
+
+        title = "Portfolio";
+        content = `
+            <button onclick="showDetail('teacher')">Teacher Practice</button><br><br>
+            <button onclick="showDetail('design')">Design Social Media</button><br><br>
+            <button onclick="showDetail ('hr')">HR Assistant</button><br><br>
+            <button onclick="showDetail('Marketplace')">Digital Marketing</button><br><br>
+            <button onclick="showDetail ('Affiliate')">Affiliate & Endorse</button>
+        `;
+    } 
+
+    else if (type === "teacher") {
+	lastMenu = "portfolio";
+        title = "Teacher Practice";
+        content = `
+            <div class="photo-grid">
+                <div class="photo-frame"><img src="images/teacher 1.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 2.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 3.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 4.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 5.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 6.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 7.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 8.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 9.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 10.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 11.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 12.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 13.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 14.jpeg"></div>
+                <div class="photo-frame"><img src="images/teacher 15.jpeg"></div>
+            </div>
+
+            <div style="margin-top:40px; text-align:left; color:#7a2e4a; line-height:1.6;">
+                <p><b>1. PROJECT - SD NEGERI 2 SINGOCANDI</b><br>
+                Gangguan Belajar Siswa Melakukan observasi terhadap siswa untuk mengidentifikasi kesulitan, masalah, dan gangguan dalam proses belajar, serta menganalisis faktor-faktor yang memengaruhi proses pembelajaran.</p>
+
+                <p><b>2. PROJECT - SDN 3 PEDAWANG</b><br>
+                Psikologi Belajar: Observasi Kesulitan Belajar dan Rancangan Intervensi. Melaksanakan observasi kesulitan belajar siswa dan menyusun rancangan intervensi pembelajaran berdasarkan hasil observasi.</p>
+
+                <p><b>3. PROJECT - SD DISLEKSIA JEPARA</b><br>
+                Merancang treatment dan media pembelajaran untuk anak disleksia berdasarkan hasil observasi dan kajian psikologi perkembangan.</p>
+
+                <p><b>4. PROJECT - RA SYUHADA</b><br>
+                Pengembangan keterampilan motorik halus anak usia dini melalui media papan tali sedotan dan art beads.</p>
+
+                <p><b>5. PROJECT KKN - SD 1 GAMONG</b><br>
+                Edukasi pencegahan bullying pada siswa melalui penyampaian materi dan aktivitas interaktif.</p>
+
+                <p><b>6. PROJECT - SD NEGERI 2 SINGOCANDI</b><br>
+                Pengembangan karakter kerja sama, tanggung jawab, dan rasa ingin tahu melalui eksperimen dan permainan edukatif.</p>
+            </div>
+        `;
+    } 
+
+    else if (type === "design") {
+	lastMenu = "portfolio";
+        title = "Design Social Media";
+        content = `
+            <div class="photo-grid design-grid">
+                <div class="photo-frame"><img src="images/design 1.jpeg"></div>
+                <div class="photo-frame"><img src="images/design 2.jpeg"></div>
+                <div class="photo-frame"><img src="images/design 3.jpeg"></div>
+                <div class="photo-frame"><img src="images/design 4.jpeg"></div>
+                <div class="photo-frame"><img src="images/design 5.jpeg"></div>
+                <div class="photo-frame"><img src="images/design 6.jpeg"></div>
+		<div class="photo-frame"><img src="images/design 7.jpeg"></div>
+		<div class="photo-frame"><img src="images/design 8.jpeg"></div>
+		<div class="photo-frame"><img src="images/design 9.jpeg"></div>
+		<div class="photo-frame"><img src="images/design 10.jpeg"></div>
+		<div class="photo-frame"><img src="images/design 11.jpeg"></div>
+		<div class="photo-frame"><img src="images/design 12.jpeg"></div>
+		<div class="photo-frame"><img src="images/design 13.jpeg"></div>
+		<div class="photo-frame"><img src="images/design 14.jpeg"></div>
+		<div class="photo-frame"><img src="images/design 15.jpeg"></div>
+            </div>
+        `;
+    }
+
+  else if (type === "hr") {
+	lastMenu = "portfolio";
+
+        title = "HR Assistant";
+        content = `
+            <div class="photo-grid design-grid">
+                <div class="photo-frame"><img src="images/hr 1.jpeg"></div>
+                <div class="photo-frame"><img src="images/hr 2.jpeg"></div>
+                <div class="photo-frame"><img src="images/hr 3.jpeg"></div>
+                <div class="photo-frame"><img src="images/hr 4.jpeg"></div>
+                <div class="photo-frame"><img src="images/hr 5.jpeg"></div>
+                <div class="photo-frame"><img src="images/hr 6.jpeg"></div>
+		<div class="photo-frame"><img src="images/hr 7.jpeg"></div>
+		<div class="photo-frame"><img src="images/hr 8.jpeg"></div>
+		<div class="photo-frame"><img src="images/hr 9.jpeg"></div>
+		<div class="photo-frame"><img src="images/hr 10.jpeg"></div>
+		<div class="photo-frame"><img src="images/hr 11.jpeg"></div>
+		<div class="photo-frame"><img src="images/hr 12.jpeg"></div>
+            </div>
+        `;
+    }
+    else {
+        title = type.charAt(0).toUpperCase() + type.slice(1);
+        content = `<p>Content coming soon ✨</p>`;
+    }
+
+    detailTitle.innerText = title;
+    detailContent.innerHTML = content;
+}
+</script>
+
+</body>
+</html>
